@@ -22,17 +22,21 @@ public class InteractorTool : MonoBehaviour {
 		Physics.Raycast (playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionDistance);
 
 
-		aimPoint3d.transform.position = hit.point;
 
 
-		if (hit.transform != null && hit.transform.tag == "InteractiveByRay"){
+		if (hit.transform != null){
+			aimPoint3d.transform.position = hit.point;
+			//Debug.Log ("--> " + hit.transform.tag);
+		}
+		
+		if (hit.transform.tag == "InteractiveByRay"){
 			currentAgent = hit.transform.GetComponent<InteractionAgent>();
 
-		} else{
+		}else{
 			currentAgent = null;
 		}
-
-
+	
+	
 		if ( currentAgent != lastSelected){
 			if (currentAgent == null){
 				lastSelected.Unselect();
